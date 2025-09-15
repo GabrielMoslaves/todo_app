@@ -9,6 +9,14 @@ async function getTasks(_, res) {
     res.status(500);
   }
 }
+async function getTaskById(req, res) {
+  try {
+    const result = await taskModel.getTaskById(req.params.id);
+    res.json(result);
+  } catch (e) {
+    res.status(500).json({ message: e });
+  }
+}
 
 async function createTask(req, res) {
   try {
@@ -16,6 +24,15 @@ async function createTask(req, res) {
     res.json(result);
   } catch (e) {
     res.status(500).json({ message: e });
+  }
+}
+
+async function updateTask(req, res) {
+  try {
+    const result = await taskModel.updateTask(req.params.id, req.body);
+    res.json(result);
+  } catch (e) {
+    res.status(500).message({ e });
   }
 }
 
@@ -32,6 +49,8 @@ const taskController = {
   getTasks,
   createTask,
   deleteTask,
+  getTaskById,
+  updateTask,
 };
 
 module.exports = taskController;
