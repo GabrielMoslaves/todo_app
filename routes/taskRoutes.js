@@ -6,10 +6,11 @@ const {
   updateTask,
   getTaskById,
 } = require("../controllers/taskController");
+const authMiddleware = require("../middlewares/auth");
 
 const router = express.Router();
 
-router.get("/", getTasks);
+router.get("/", authMiddleware, getTasks);
 router.get("/:id", getTaskById);
 router.post("/", createTask);
 router.patch("/:id", updateTask);
