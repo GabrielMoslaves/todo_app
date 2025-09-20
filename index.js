@@ -9,7 +9,7 @@ app.use(express.json());
 
 app.use("/tasks", taskRoutes);
 app.use("/users", usersRoutes);
-app.use("/login", authRoutes);
+app.use("/auth", authRoutes);
 
 app.listen("3030", () => {
   console.log("servidor rodando");
