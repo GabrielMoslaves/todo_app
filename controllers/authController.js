@@ -17,7 +17,7 @@ async function login(req, res) {
     }
 
     const accessToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
-      expiresIn: "30s",
+      expiresIn: "15d", //alterar no futuro
     });
 
     const refreshToken = uuidv4();
@@ -44,7 +44,7 @@ async function refresh(req, res) {
     const userId = result.rows[0].user_id;
 
     const newAccessToken = jwt.sign({ id: userId }, process.env.JWT_SECRET, {
-      expiresIn: "30s",
+      expiresIn: "15d", //alterar no futuro
     });
 
     return res.json({ accessToken: newAccessToken });
