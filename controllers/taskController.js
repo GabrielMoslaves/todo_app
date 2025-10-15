@@ -41,10 +41,25 @@ async function createTask(req, res) {
 async function updateTask(req, res) {
   try {
     const taskData = {
-      name: req.body.name,
-      status: req.body.status,
       user_id: req.user.id,
     };
+
+    if (req.body.name !== undefined) {
+      taskData.name = req.body.name;
+    }
+    if (req.body.status !== undefined) {
+      taskData.status = req.body.status;
+    }
+    if (req.body.duration !== undefined) {
+      taskData.duration = req.body.duration;
+    }
+    if (req.body.start_time !== undefined) {
+      taskData.start_time = new Date(req.body.start_time);
+    }
+
+    if (taskData.start_time) {
+      taskData.start_time = new Date(taskData.start_time);
+    }
 
     const result = await taskModel.updateTask(req.params.id, taskData);
 
@@ -53,7 +68,7 @@ async function updateTask(req, res) {
     }
     res.json(result);
   } catch (e) {
-    res.status(500).message({ e });
+    res.status(500).json({ message: e.message });
   }
 }
 
