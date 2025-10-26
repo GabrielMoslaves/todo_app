@@ -6,7 +6,7 @@ const { v4: uuidv4 } = require("uuid");
 async function login(req, res) {
   try {
     const { password } = req.body;
-    const user = await authModel.getUserByUserName(req.body);
+    const user = await authModel.getUserByUserEmail(req.body);
     if (!user) {
       return res.status(401).json({ message: "Usuário não encontrado" });
     }

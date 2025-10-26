@@ -1,9 +1,9 @@
 const { pool } = require("../server");
 
-async function getUserByUserName(authData) {
-  const { name } = authData;
-  const result = await pool.query("SELECT * FROM users WHERE username=$1", [
-    name,
+async function getUserByUserEmail(authData) {
+  const { email } = authData;
+  const result = await pool.query("SELECT * FROM users WHERE email=$1", [
+    email,
   ]);
 
   const user = result.rows[0];
@@ -39,7 +39,7 @@ async function deleteRefreshToken(refreshToken) {
 }
 
 const authModel = {
-  getUserByUserName,
+  getUserByUserEmail,
   createRefreshToken,
   getRefreshToken,
   deleteRefreshToken,
