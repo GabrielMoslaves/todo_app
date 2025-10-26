@@ -9,8 +9,8 @@ async function getUsers() {
 async function createUser(userData) {
   const password = await bcrypt.hash(userData.password, 10);
   const result = await pool.query(
-    "INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *;",
-    [userData.username, password]
+    "INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *;",
+    [userData.email, password]
   );
   return result.rows[0];
 }
@@ -21,8 +21,8 @@ async function updateUser(userData, id) {
     : userData.password;
 
   const result = await pool.query(
-    "UPDATE users SET username = $1, password = $2 WHERE id = $3 RETURNING *;",
-    [userData.username, password, id]
+    "UPDATE users SET email = $1, password = $2 WHERE id = $3 RETURNING *;",
+    [userData.email, password, id]
   );
   return result.rows[0];
 }
