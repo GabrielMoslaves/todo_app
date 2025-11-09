@@ -1,5 +1,5 @@
-const { pool } = require("../server");
-const bcrypt = require("bcrypt");
+import { pool } from "../server.js";
+import bcrypt from "bcrypt";
 
 async function getUsers() {
   const result = await pool.query("SELECT * FROM users;");
@@ -42,4 +42,4 @@ const userModel = {
   updateUser,
 };
 
-module.exports = userModel;
+export default userModel;

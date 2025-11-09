@@ -1,4 +1,4 @@
-const { pool } = require("../server");
+import { pool } from "../server.js";
 
 async function getTasks(userId) {
   const result = await pool.query(
@@ -83,4 +83,4 @@ const taskModel = {
   getTaskById,
 };
 
-module.exports = taskModel;
+export default taskModel;

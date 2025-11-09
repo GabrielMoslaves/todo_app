@@ -1,4 +1,4 @@
-const { pool } = require("../server");
+import { pool } from "../server.js";
 
 async function getUserByUserEmail(authData) {
   const { email } = authData;
@@ -45,4 +45,4 @@ const authModel = {
   deleteRefreshToken,
 };
 
-module.exports = authModel;
+export default authModel;

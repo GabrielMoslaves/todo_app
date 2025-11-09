@@ -1,12 +1,11 @@
-const taskModel = require("../models/taskModel");
+import taskModel from "../models/taskModel.js";
 
 async function getTasks(req, res) {
   try {
     const result = await taskModel.getTasks(req.user.id);
     res.json(result);
   } catch (e) {
-    console.error(e);
-    res.status(500);
+    res.status(500).json({ message: e.message });
   }
 }
 async function getTaskById(req, res) {
@@ -57,10 +56,6 @@ async function updateTask(req, res) {
       taskData.start_time = new Date(req.body.start_time);
     }
 
-    if (taskData.start_time) {
-      taskData.start_time = new Date(taskData.start_time);
-    }
-
     const result = await taskModel.updateTask(req.params.id, taskData);
 
     if (!result) {
@@ -99,4 +94,4 @@ const taskController = {
   updateTask,
 };
 
-module.exports = taskController;
+export default taskController;

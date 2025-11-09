@@ -11,6 +11,12 @@ export const shorthands = undefined;
 export const up = (pgm) => {
   pgm.createType("task_status", ["pending", "in progress", "finished"]);
 
+  // Primeiro, remover o default antigo
+  pgm.alterColumn("tasks", "status", {
+    default: null,
+  });
+
+  // Depois, alterar o tipo da coluna
   pgm.alterColumn("tasks", "status", {
     type: "task_status",
     using: `CASE 
@@ -19,9 +25,11 @@ export const up = (pgm) => {
         WHEN status = 'finished' THEN 'finished'::task_status
         ELSE 'pending'::task_status
         END`,
-    default: "pending",
     notNull: true,
   });
+
+  // Por fim, adicionar o default com o tipo correto
+  pgm.sql(`ALTER TABLE tasks ALTER COLUMN status SET DEFAULT 'pending'::task_status`);
 };
 
 /**

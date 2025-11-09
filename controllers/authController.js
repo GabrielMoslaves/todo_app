@@ -1,7 +1,7 @@
-const authModel = require("../models/authModel");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const { v4: uuidv4 } = require("uuid");
+import authModel from "../models/authModel.js";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import { v4 as uuidv4 } from "uuid";
 
 async function login(req, res) {
   try {
@@ -17,7 +17,7 @@ async function login(req, res) {
     }
 
     const accessToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
-      expiresIn: "3m", //alterar no futuro
+      expiresIn: "3m",
     });
 
     const refreshToken = uuidv4();
@@ -28,7 +28,6 @@ async function login(req, res) {
     res.json({ accessToken, refreshToken });
   } catch (e) {
     res.status(500).json({ message: "Erro no login", error: e.message });
-    console.error(e);
   }
 }
 
@@ -44,13 +43,12 @@ async function refresh(req, res) {
     const userId = result.rows[0].user_id;
 
     const newAccessToken = jwt.sign({ id: userId }, process.env.JWT_SECRET, {
-      expiresIn: "15d", //alterar no futuro
+      expiresIn: "15d",
     });
 
     return res.json({ accessToken: newAccessToken });
   } catch (e) {
     res.status(500).json({ message: e.message });
-    console.error(e);
   }
 }
 
@@ -65,7 +63,6 @@ async function logout(req, res) {
     }
   } catch (e) {
     res.status(500).json({ message: e.message });
-    console.error(e);
   }
 }
 const authController = {
@@ -74,4 +71,4 @@ const authController = {
   logout,
 };
 
-module.exports = authController;
+export default authController;

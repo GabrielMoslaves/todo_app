@@ -1,4 +1,4 @@
-const userModel = require("../models/usersModel");
+import userModel from "../models/usersModel.js";
 
 async function getUsers(req, res) {
   try {
@@ -14,7 +14,6 @@ async function createUser(req, res) {
     const result = await userModel.createUser(req.body);
     res.json(result);
   } catch (e) {
-    console.error(e);
     res.status(500).json({ message: e });
   }
 }
@@ -24,7 +23,6 @@ async function updateUser(req, res) {
     const result = await userModel.updateUser(req.body, req.params.id);
     res.json(result);
   } catch (e) {
-    console.error(e);
     res.status(500).json({ message: e });
   }
 }
@@ -34,11 +32,10 @@ async function deleteUser(req, res) {
     const result = await userModel.deleteUser(req.params.id);
     res.json(result);
   } catch (e) {
-    console.error(e);
     res.status(500).json({ message: e });
   }
 }
 
 const userController = { getUsers, createUser, deleteUser, updateUser };
 
-module.exports = userController;
+export default userController;

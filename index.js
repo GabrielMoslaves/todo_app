@@ -1,15 +1,15 @@
-require("dotenv").config();
-const express = require("express");
-const taskRoutes = require("./routes/taskRoutes");
-const usersRoutes = require("./routes/usersRoutes");
-const authRoutes = require("./routes/authRoutes");
+import "dotenv/config";
+import express from "express";
+import taskRoutes from "./routes/taskRoutes.js";
+import usersRoutes from "./routes/usersRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
+
 const app = express();
 
 app.use(express.json());
 
-// Middleware CORS manual
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*"); // Em produção, substitua '*' pelo domínio do seu cliente
+  res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, DELETE, PATCH, OPTIONS"
@@ -19,7 +19,6 @@ app.use((req, res, next) => {
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
   );
 
-  // Responder a requisições OPTIONS (preflight)
   if (req.method === "OPTIONS") {
     res.sendStatus(200);
   } else {
@@ -31,6 +30,6 @@ app.use("/tasks", taskRoutes);
 app.use("/users", usersRoutes);
 app.use("/auth", authRoutes);
 
-app.listen("3030", () => {
-  console.log("servidor rodando");
+app.listen(3030, "0.0.0.0", () => {
+  console.log("Servidor rodando na porta 3030");
 });
