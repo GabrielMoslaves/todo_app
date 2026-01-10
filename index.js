@@ -30,6 +30,10 @@ app.use("/tasks", taskRoutes);
 app.use("/users", usersRoutes);
 app.use("/auth", authRoutes);
 
-app.listen(3030, "0.0.0.0", () => {
-  console.log("Servidor rodando na porta 3030");
-});
+export default app;
+
+if (process.env.NODE_ENV !== "production") {
+  app.listen(3030, "0.0.0.0", () => {
+    console.log("Servidor rodando na porta 3030");
+  });
+}
