@@ -10,7 +10,7 @@ async function createUser(userData) {
   const password = await bcrypt.hash(userData.password, 10);
   const result = await pool.query(
     "INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *;",
-    [userData.email, password]
+    [userData.email, password],
   );
   return result.rows[0];
 }
@@ -22,7 +22,7 @@ async function updateUser(userData, id) {
 
   const result = await pool.query(
     "UPDATE users SET email = $1, password = $2 WHERE id = $3 RETURNING *;",
-    [userData.email, password, id]
+    [userData.email, password, id],
   );
   return result.rows[0];
 }
@@ -30,7 +30,7 @@ async function updateUser(userData, id) {
 async function deleteUser(id) {
   const result = await pool.query(
     "DELETE FROM users WHERE id = $1 RETURNING *;",
-    [id]
+    [id],
   );
   return result.rows[0];
 }

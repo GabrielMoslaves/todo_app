@@ -15,7 +15,7 @@ const pool = new Pool(
         password: process.env.DB_PASSWORD || process.env.PGPASSWORD || "123",
         database: process.env.DB_NAME || process.env.PGDATABASE || "todo_db",
         port: process.env.DB_PORT || process.env.PGPORT || 5432,
-      }
+      },
 );
 
 export { pool };

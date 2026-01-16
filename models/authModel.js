@@ -14,7 +14,7 @@ async function getUserByUserEmail(authData) {
 async function createRefreshToken(token, userId, expiresAt) {
   const result = await pool.query(
     "INSERT INTO refresh_tokens (token, user_id, expires_at) VALUES ($1, $2, $3);",
-    [token, userId, expiresAt]
+    [token, userId, expiresAt],
   );
 
   return result.rows[0];
@@ -23,7 +23,7 @@ async function createRefreshToken(token, userId, expiresAt) {
 async function getRefreshToken(refreshToken) {
   const result = await pool.query(
     "SELECT * FROM refresh_tokens WHERE token = $1 AND revoked = FALSE AND expires_at > now()",
-    [refreshToken]
+    [refreshToken],
   );
 
   return result;
@@ -32,7 +32,7 @@ async function getRefreshToken(refreshToken) {
 async function deleteRefreshToken(refreshToken) {
   const result = await pool.query(
     "DELETE FROM refresh_tokens WHERE token = $1 RETURNING *",
-    [refreshToken]
+    [refreshToken],
   );
 
   return result;

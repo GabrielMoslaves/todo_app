@@ -12,7 +12,7 @@ async function getTasks(userId) {
       start_time,
       started
     FROM tasks WHERE user_id = $1 ORDER BY created_at ASC;`,
-    [userId]
+    [userId],
   );
   return result.rows;
 }
@@ -20,7 +20,7 @@ async function getTasks(userId) {
 async function getTaskById(id) {
   const result = await pool.query(
     "SELECT * FROM tasks WHERE id = $1 AND user_id = $2;",
-    [id]
+    [id],
   );
   return result.rows[0];
 }
@@ -29,7 +29,7 @@ async function createTask(taskData) {
   const { name, user_id, duration, start_time } = taskData;
   const result = await pool.query(
     "INSERT INTO tasks (name, user_id, duration, start_time) VALUES ($1, $2, ($3 || ':00')::interval, $4) RETURNING id, name, status, started,created_at, user_id, TO_CHAR(duration, 'HH24:MI') as duration, start_time;",
-    [name, user_id, duration, start_time]
+    [name, user_id, duration, start_time],
   );
   return result.rows[0];
 }
@@ -70,7 +70,7 @@ async function updateTask(id, taskData) {
 async function deleteTaskById(id, userId) {
   const result = await pool.query(
     "DELETE FROM tasks WHERE id = $1 AND user_id = $2 RETURNING id, name, status, started, created_at, user_id, TO_CHAR(duration, 'HH24:MI') as duration, start_time;",
-    [id, userId]
+    [id, userId],
   );
   return result.rows[0];
 }

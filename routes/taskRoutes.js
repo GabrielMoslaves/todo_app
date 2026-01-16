@@ -2,7 +2,8 @@ import express from "express";
 import taskController from "../controllers/taskController.js";
 import authMiddleware from "../middlewares/auth.js";
 
-const { getTasks, createTask, deleteTask, updateTask, getTaskById } = taskController;
+const { getTasks, createTask, deleteTask, updateTask, getTaskById } =
+  taskController;
 
 const router = express.Router();
 

@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "jest",
+    "lint": "npx eslint .",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "migrate": "node-pg-migrate",
@@ -30,7 +31,13 @@
     "@babel/preset-env": "^7.28.5",
     "@commitlint/cli": "^20.2.0",
     "@commitlint/config-conventional": "^20.2.0",
+    "@eslint/js": "^9.39.2",
     "babel-jest": "^30.2.0",
-    "husky": "^9.1.7"
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "globals": "^17.0.0",
+    "husky": "^9.1.7",
+    "prettier": "^3.8.0"
   }
 }

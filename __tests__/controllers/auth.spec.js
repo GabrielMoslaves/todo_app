@@ -66,7 +66,7 @@ describe("AuthController", () => {
       expect(authModel.getUserByUserEmail).toHaveBeenCalledWith(req.body);
       expect(bcrypt.compare).toHaveBeenCalledWith(
         "correctPassword",
-        "hashedPassword"
+        "hashedPassword",
       );
       expect(jwt.sign).toHaveBeenCalledWith({ id: 1 }, "test-secret-key", {
         expiresIn: "3m",
@@ -117,7 +117,7 @@ describe("AuthController", () => {
       expect(authModel.getUserByUserEmail).toHaveBeenCalledWith(req.body);
       expect(bcrypt.compare).toHaveBeenCalledWith(
         "wrongPassword",
-        "hashedPassword"
+        "hashedPassword",
       );
       expect(jwt.sign).not.toHaveBeenCalled();
       expect(res.status).toHaveBeenCalledWith(401);
@@ -168,7 +168,7 @@ describe("AuthController", () => {
       expect(jwt.sign).toHaveBeenCalledWith(
         { id: mockUserId },
         "test-secret-key",
-        { expiresIn: "15d" }
+        { expiresIn: "15d" },
       );
       expect(res.json).toHaveBeenCalledWith({
         accessToken: mockNewAccessToken,
@@ -233,7 +233,7 @@ describe("AuthController", () => {
       await logout(req, res);
 
       expect(authModel.deleteRefreshToken).toHaveBeenCalledWith(
-        mockRefreshToken
+        mockRefreshToken,
       );
       expect(res.json).toHaveBeenCalledWith({
         message: "logout successful",
@@ -252,7 +252,7 @@ describe("AuthController", () => {
       await logout(req, res);
 
       expect(authModel.deleteRefreshToken).toHaveBeenCalledWith(
-        mockRefreshToken
+        mockRefreshToken,
       );
       expect(res.status).toHaveBeenCalledWith(400);
     });
@@ -270,7 +270,7 @@ describe("AuthController", () => {
       await logout(req, res);
 
       expect(authModel.deleteRefreshToken).toHaveBeenCalledWith(
-        mockRefreshToken
+        mockRefreshToken,
       );
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.json).toHaveBeenCalledWith({
