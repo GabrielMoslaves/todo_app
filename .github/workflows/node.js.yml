@@ -1,9 +1,9 @@
-name: Node.js CI
+name: Continuous integration
 
 on: [push]
 
 jobs:
-  build:
+  continuous-integration:
     runs-on: ubuntu-latest
 
     steps:
